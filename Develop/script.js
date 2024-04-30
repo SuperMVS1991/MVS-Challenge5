@@ -66,7 +66,7 @@ function save() {
   console.log("save"); 
 
   const object = {
-     id : $(this).siblings(".description").attr("id");
+     id : $(this).siblings(".description").attr("id"),
      text : $(this).siblings(".description").val()
   }
     data.push(object);
