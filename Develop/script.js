@@ -20,7 +20,7 @@ for (var i = 9; i < 19; i++) {
   } 
   var textArea = document.createElement("textarea");
   textArea.setAttribute("class", "description col-8 col-md-10");
-  textArea.setAttribute("id", "hour-" + i);
+  textArea.setAttribute("id", i);
   var button = document.createElement("button");
   button.setAttribute("class", "saveBtn btn col-2 col-md-1");
   var icon = document.createElement("i"); 
@@ -34,13 +34,10 @@ for (var i = 9; i < 19; i++) {
 
 function updateColors() {
   var currentHour = dayjs().hour(); 
-  console.log(currentHour);
   var timeBlocks = document.getElementsByClassName("time-block");
   for (var i = 0; i < timeBlocks.length; i++) {
     var timeBlock = timeBlocks[i];
-    console.log(timeBlock.children[1].attributes.id.value.split("-")[1]);
-    var hour = parseInt(timeBlock.children[1].attributes.id.value.split("-")[1]); 
-    console.log(hour);
+    var hour = parseInt(timeBlock.children[1].attributes.id.value); 
     if (hour < currentHour) {
       timeBlock.setAttribute("class", "time-block row past");
     }
@@ -55,6 +52,25 @@ function updateColors() {
 
 updateColors();
 
+
+
+function save() {
+  console.log("save"); 
+
+
+    var id = $(this).siblings(".description").attr("id");
+    var text = $(this).siblings(".description").val(); 
+    console.log(id);
+    console.log(text);
+    localStorage.setItem(id, text);
+  }
+
+  var buttons = document.querySelectorAll(".saveBtn");
+
+ buttons.forEach(button => { 
+  button.addEventListener("click", save);
+    
+  });
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
