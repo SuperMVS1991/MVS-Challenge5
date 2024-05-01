@@ -6,8 +6,7 @@ document.getElementById("currentDay").textContent = dayjs().format("dddd, MMMM D
 
 function load( ){ 
 
-  var loadData = localStorage.getItem(data); 
-  console.log(loadData);
+  
 for (var i = 9; i < 19; i++) {
   var timeBlock = document.createElement("div");
   timeBlock.setAttribute("class", "time-block row");
@@ -35,10 +34,16 @@ for (var i = 9; i < 19; i++) {
   timeBlock.appendChild(button);
   document.getElementById("time-blocks").appendChild(timeBlock);  
 } 
+
+
+  for (var i = 9; i < 19; i++) {
+    var text = localStorage.getItem(i);
+    if (text) { 
+      console.log(text);
+      document.getElementById(i).value = text;
+    }
+  }
 }
-
-  
-
 
 function updateColors() {
   var currentHour = dayjs().hour(); 
@@ -46,6 +51,7 @@ function updateColors() {
   for (var i = 0; i < timeBlocks.length; i++) {
     var timeBlock = timeBlocks[i];
     var hour = parseInt(timeBlock.children[1].attributes.id.value); 
+    console.log(hour);
     if (hour < currentHour) {
       timeBlock.setAttribute("class", "time-block row past");
     }
@@ -57,20 +63,21 @@ function updateColors() {
     }
   }
 } 
-
-updateColors();
 load();
+updateColors();
 
 
 function save() {
-  console.log("save"); 
-
-  const object = {
-     id : $(this).siblings(".description").attr("id"),
-     text : $(this).siblings(".description").val()
-  }
-    data.push(object);
-    localStorage.setItem(data);
+  console.log("save");  
+//  const saveArray = [];
+var id = $(this).siblings(".description").attr("id"); 
+//saveArray.push(id); 
+var text = $(this).siblings(".description").val(); 
+//saveArray.push(text);
+  
+   
+    
+    localStorage.setItem(id, text);
   }
 
   var buttons = document.querySelectorAll(".saveBtn");
